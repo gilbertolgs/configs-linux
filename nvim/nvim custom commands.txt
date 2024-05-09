@@ -1,0 +1,14 @@
+fo filetree open
+fc filetree close
+
+t[ tab previous
+t] tab next
+tq close specified tab
+tleft move tab left
+tright move tab right
+
+ctrl f leap foward
+f leap backward
+
+r record macro
+q block/visual

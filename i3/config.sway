@@ -3,11 +3,10 @@
 #
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
-# FOR SWAY
-#input * {
-#    xkb_layout br
-#    xkb_variant abnt2
-#}
+input * {
+    xkb_layout br
+    xkb_variant abnt2
+}
 
 #exec_always --no-startup-id feh --bg-scale ~/Desktop/wp3181490.webp
 
@@ -15,15 +14,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-# -------------culpar luis se n funcionar
-# Brightness up
-bindsym XF86MonBrightnessUp exec brightnessctl set +10%
-
-# Brightness down
-bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
-# ---------------
-
-set $term kitty
+set $term alacritty
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -68,24 +59,23 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-set $rofi_launcher $HOME/.config/rofi/launchers/type-7/style-1.rasi
-set $rofi_powermenu $HOME/.config/rofi/powermenu/type-1/powermenu.sh
-set $rofi_monitor_layout $HOME/configs-linux/rofi/monitor_layout.sh
-set $rofi_media $HOME/.config/rofi/applets/bin/mpd.sh
+set $rofi_launcher /home/nti2/.config/rofi/launchers/type-7/style-1.rasi
+set $rofi_powermenu /home/nti2/.config/rofi/powermenu/type-1/powermenu.sh
+set $rofi_media /home/nti2/.config/rofi/applets/bin/mpd.sh
+set $rofi_screenshot /home/nti2/.config/rofi/applets/bin/screenshot.sh
 
 #bindsym $mod+Shift+d exec --no-startup-id "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#005577' -sf '#EEEEEE' -fn 'monospace-10'"
 bindsym $mod+Shift+d exec rofi -show run -theme $rofi_launcher
-bindsym $mod+Ctrl+s exec TERMINAL=$term rofi -show ssh -theme $rofi_launcher
+bindsym $mod+Ctrl+s exec TERMINAL=alacritty rofi -show ssh -theme $rofi_launcher
 bindsym $mod+d exec rofi -show drun -theme $rofi_launcher
-bindsym $mod+p exec $rofi_monitor_layout -theme $rofi_launcher
-bindsym $mod+Ctrl+p exec rofi -show window
+bindsym $mod+p exec rofi -show window
 
 # exit i3 (logs you out of your X session)
 #bindsym $mod+Shift+e exec "swaynag -t warning -m 'Sair?' -B 'Sim' 'i3-msg exit'"
 bindsym $mod+Shift+e exec $rofi_powermenu
 
 bindsym $mod+Shift+p exec $rofi_media
-bindsym $mod+Shift+s exec flameshot gui
+bindsym $mod+Shift+s exec $rofi_screenshot
 
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
@@ -121,7 +111,7 @@ bindsym $mod+Shift+Right move right
 #bindsym $mod+h split h
 
 # split in vertical orientation
-#bindsym $mod+v split v
+bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -180,10 +170,6 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-# move workspace to different screen
-bindsym $mod+Shift+braceright move workspace to output right
-bindsym $mod+Shift+braceleft move workspace to output left
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -217,7 +203,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # class                 border  bground text    indicator child_border
-client.focused          #8888AA #444466 #000000 #83CAFA   #8888AA
+client.focused          #FF00FF #750075 #FF00FF #83CAFA   #FF00FF
 client.focused_inactive #8C8C8C #4C4C4C #FFFFFF #4C4C4C   #8C8C8C
 client.unfocused        #4C4C4C #222222 #888888 #292D2E   #222222
 client.urgent           #EC69A0 #DB3279 #FFFFFF #DB3279   #DB3279
@@ -230,110 +216,23 @@ client.background       #FFFFFF
 popup_during_fullscreen leave_fullscreen
 hide_edge_borders both
 title_align center
-exec_always --no-startup-id bash -c "killall unclutter; unclutter"
-exec_always --no-startup-id bash -c "killall polybar; polybar"
-#exec_always --no-startup-id bash -c "killall waybar; waybar"
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id bash -c "killall waybar; waybar"
 
-#bar {
-#	colors {
-#		background #000000
-#			statusline #FFFFFF
-#			separator  #666666
-#
-#			focused_workspace  #83CAFA #51A2DA #FFFFFF
-#			active_workspace   #3C6EB4 #294172 #FFFFFF
-#			inactive_workspace #8C8C8C #4C4C4C #888888
-#			urgent_workspace   #EC69A0 #DB3279 #FFFFFF
-#			binding_mode       #b691d3 #A07CBC #FFFFFF
-#	}
-#
-#	status_command i3status -c $HOME/.config/i3/i3status.config
-#}
+# bar {
+#   colors {
+#     background #000000
+#     statusline #FFFFFF
+#     separator  #666666
+# 
+#     focused_workspace  #83CAFA #51A2DA #FFFFFF
+#     active_workspace   #3C6EB4 #294172 #FFFFFF
+#     inactive_workspace #8C8C8C #4C4C4C #888888
+#     urgent_workspace   #EC69A0 #DB3279 #FFFFFF
+#     binding_mode       #b691d3 #A07CBC #FFFFFF
+#   }
+#   status_command i3status
+# }
 
 # WINDOWS+X altera tamanho de telas flutuantes
 bindsym $mod+x [floating] resize set 900 500
-
-mode "mouse" {
-
-	# set your three speeds here
-
-	set $slow 3
-	set $quick 30
-	set $fast 150
-
-	# Mouse movement (quick/fine-tuned) -- vim keybindings
-
-	bindsym h exec xdotool mousemove_relative -- -$quick 0
-	bindsym j exec xdotool mousemove_relative 0 $quick
-	bindsym k exec xdotool mousemove_relative -- 0 -$quick
-	bindsym l exec xdotool mousemove_relative $quick 0
-
-	# Mouse movement (quick/fine-tuned) -- arrow keys
-
-	bindsym Left exec xdotool mousemove_relative -- -$quick 0
-	bindsym Down exec xdotool mousemove_relative 0 $quick
-	bindsym Up exec xdotool mousemove_relative -- 0 -$quick
-	bindsym Right exec xdotool mousemove_relative $quick 0
-
-	# Mouse movement (slow) -- vim keybindings
-
-	bindsym Shift+h exec xdotool mousemove_relative -- -$slow 0
-	bindsym Shift+j exec xdotool mousemove_relative 0 $slow
-	bindsym Shift+k exec xdotool mousemove_relative -- 0 -$slow
-	bindsym Shift+l exec xdotool mousemove_relative $slow 0
-
-	# Mouse movement (slow) -- arrow keys
-
-	bindsym Shift+Left exec xdotool mousemove_relative -- -$slow 0
-	bindsym Shift+Down exec xdotool mousemove_relative 0 $slow
-	bindsym Shift+Up exec xdotool mousemove_relative -- 0 -$slow
-	bindsym Shift+Right exec xdotool mousemove_relative $slow 0
-
-	# Mouse movement (fast) -- vim keybindings
-
-	bindsym Ctrl+h exec xdotool mousemove_relative -- -$fast 0
-	bindsym Ctrl+j exec xdotool mousemove_relative 0 $fast
-	bindsym Ctrl+k exec xdotool mousemove_relative -- 0 -$fast
-	bindsym Ctrl+l exec xdotool mousemove_relative $fast 0
-
-	# Mouse movement (fast) -- arrow keys
-
-	bindsym Ctrl+Left exec xdotool mousemove_relative -- -$fast 0
-	bindsym Ctrl+Down exec xdotool mousemove_relative 0 $fast
-	bindsym Ctrl+Up exec xdotool mousemove_relative -- 0 -$fast
-	bindsym Ctrl+Right exec xdotool mousemove_relative $fast 0
-
-	# Left Click
-	bindsym f exec xdotool click 1
-
-	# Middle Click
-	bindsym d exec xdotool click 2
-
-	# Right Click
-	bindsym s exec xdotool click 3
-
-	# Left Click-and-drag
-	bindsym Shift+f exec xdotool mousedown 1
-
-	# Middle Click-and-drag 
-	bindsym Shift+d exec xdotool mousedown 2
-
-	# Right Click-and-drag
-	bindsym Shift+s exec xdotool mousedown 3
-
-	# Left Drag release
-	bindsym $mod2+f exec xdotool mouseup 1
-
-	# Middle Drag release
-	bindsym $mod2+d exec xdotool mouseup 2
-
-	# Right Drag release
-	bindsym $mod2+s exec xdotool mouseup 3
-
-
-	# return to normal keybindings -- IMPORTANT!!
-
-	bindsym Escape mode "default"
-}
-
-bindsym $mod+Shift+m mode "mouse"

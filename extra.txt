@@ -1,0 +1,5 @@
+zoxide
+eza
+fzf
+bat
+yazi
